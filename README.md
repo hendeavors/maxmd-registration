@@ -43,4 +43,4 @@ $response = Patient::Provision($person, function($provision, $id) use($username,
 });
 ```
 
-Note: The username and password for the person are necessary to create the accound with maxmd and receive a direct message account.
+Note: The username and password for the person are necessary to create the account with maxmd and receive a direct message account.
