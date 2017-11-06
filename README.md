@@ -103,7 +103,7 @@ To ensure you have the correct direct address:
 $response = Patient::Provision($person, function($provision, $id) use($username, $password) {
     $response = $provision->ProvisionIDProofedPatient("yourown.direct.domain.here", ['idpId' => $id], $username, $password);
     // Call get address by username, a bit misleading as this does not return the direct address
-    $provision->GetPatientAddressByUserName("healthendeavors.direct.eval.md", "freddie");
+    $provision->GetPatientAddressByUserName("yourown.direct.domain.here", "freddie");
     // get the direct address username@yourown.direct.domain.here
     $directAddress = $provision->DirectAddress();
 });
