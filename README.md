@@ -96,3 +96,28 @@ response: {#176
   }
 }
 ```
+
+To ensure you have the correct direct address:
+
+```php
+$response = Patient::Provision($person, function($provision, $id) use($username, $password) {
+    $response = $provision->ProvisionIDProofedPatient("yourown.direct.domain.here", ['idpId' => $id], $username, $password);
+    // Call get address by username, a bit misleading as this does not return the direct address
+    $provision->GetPatientAddressByUserName("healthendeavors.direct.eval.md", "freddie");
+    // get the direct address username@yourown.direct.domain.here
+    $directAddress = $provision->DirectAddress();
+});
+```
+
+To perform manually:
+
+```php
+// Proof
+// Verify mobile
+// Provision
+$provision = new \Endeavors\MaxMD\Registration\Person\Registration();
+// assume freddie has performed and passed the above steps
+$provision->GetPatientAddressByUserName("healthendeavors.direct.eval.md", "freddie");
+
+$directAddress = $provision->DirectAddress();
+```
