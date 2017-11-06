@@ -69,4 +69,15 @@ class AddressByUsernameTest extends \Orchestra\Testbench\TestCase
 
         $this->assertNull($provision->DirectAddress());
     }
+
+    public function testInvalidDirectAddress()
+    {
+        $provision = new Registration();
+        
+        $provision->GetPatientAddressByUserName("some.invalid.direct.md", "freddie");
+
+        $this->assertNull($provision->Username());
+
+        $this->assertNull($provision->DirectAddress());
+    }
 }
