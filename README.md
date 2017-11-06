@@ -117,7 +117,7 @@ To perform manually:
 // Provision
 $provision = new \Endeavors\MaxMD\Registration\Person\Registration();
 // assume freddie has performed and passed the above steps
-$provision->GetPatientAddressByUserName("healthendeavors.direct.eval.md", "freddie");
+$provision->GetPatientAddressByUserName("yourown.direct.domain.here", "freddie");
 
 $directAddress = $provision->DirectAddress();
 ```
