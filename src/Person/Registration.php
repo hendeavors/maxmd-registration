@@ -5,10 +5,15 @@ namespace Endeavors\MaxMD\Registration\Person;
 use Endeavors\MaxMD\Registration\Contracts\IRegister;
 use Endeavors\MaxMD\Support\Client;
 use Endeavors\MaxMD\Api\Auth\Session;
+use Endeavors\MaxMD\Registration\Traits\PatientAddressTrait;
 
 class Registration implements IRegister
 {
+    use PatientAddressTrait;
+
     protected $response;
+
+    protected $myDirectDomain = '';
 
     public function ProvisionIDProofedPatient($directDomain, $request = array(), $directUsername, $directPassword)
     {
@@ -22,6 +27,8 @@ class Registration implements IRegister
             ];
 
             $this->response = Client::PatientRegistration()->ProvisionIDProofedPatient($registration);
+
+            $this->setDirectDomain($directDomain);
         }
 
         return $this;
@@ -31,18 +38,47 @@ class Registration implements IRegister
     {
         if( Session::check() ) {
             // do stuff
+            $this->setDirectDomain($directDomain);
         }
     }
-
+    
+    /**
+     * @param string directDomain
+     * @param string directUsername
+     * @todo add validation
+     */
     public function GetPatientAddressByUserName($directDomain, $directUsername)
     {
         if( Session::check() ) {
             // do stuff
+            $registration = [
+                'sessionId' => Session::getId(), 
+                'DirectDomain' => $directDomain,
+                'DirectUsername' => $directUsername
+            ];
+
+            $this->response = Client::PatientRegistration()->GetPatientAddressByUsername($registration);
+
+            $this->setDirectDomain($directDomain);
         }
+
+        return $this;
+    }
+
+    public function ToObject()
+    {
+        return $this->Raw()->return;
     }
 
     public function Raw()
     {
         return $this->response;
+    }
+
+    protected function setDirectDomain($directDomain)
+    {
+        $this->myDirectDomain = $directDomain;
+
+        return $this;
     }
 }
