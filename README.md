@@ -45,7 +45,7 @@ $response = Patient::Provision($person, function($provision, $id) use($username,
 
 Note: The username and password for the person are necessary to create the account with maxmd and receive a direct message account.
 
-Assuming you receive a successful response from maxmd and username freddie. The response will be in the following format:
+Assuming you receive a successful response from maxmd and use freddie as the username. The response will be in the following format:
 
 ```
 response: {#176
