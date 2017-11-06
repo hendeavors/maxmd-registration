@@ -44,3 +44,55 @@ $response = Patient::Provision($person, function($provision, $id) use($username,
 ```
 
 Note: The username and password for the person are necessary to create the account with maxmd and receive a direct message account.
+
+Assuming you receive a successful response from maxmd and username freddie. The response will be in the following format:
+
+```
+response: {#176
+    "return": {#177
+      "code": "000"
+      "message": "Provisioned Direct address freddie@healthendeavors.direct.eval.md for patient Sdfsdf Rodriguez. The Direct address will be activated after the Direct certificate is issued."
+      "success": true
+      "users": {#178
+        "address": "1234 Fake street"
+        "city": "Fake Town"
+        "country": "us"
+        "dea": ""
+        "email": "fake@email.com"
+        "firstName": "Sdfsdf"
+        "lastName": "Rodriguez"
+        "npi": ""
+        "phone": "14803646662"
+        "sameAsOrganizationAddress": false
+        "state": "ALASKA"
+        "zipcode": "85412"
+        "comsumeMdnFlag": false
+        "endpoint": ""
+        "endpointDirectory": "null"
+        "endpointPassword": "null"
+        "endpointUsername": "null"
+        "notifyFlag": true
+        "userType": "SMTP"
+        "username": "freddie"
+        "userState": "activated"
+      }
+      "paymentConfirmation": {#179
+        "amount": 60.0
+        "detail": "Your payment for purchasing 1 MaxMD Patient Direct Address for patient Direct address: freddie@healthendeavors.direct.eval.md has been placed."
+        "orderId": 54930
+        "orderTime": "2017-11-03T11:27:27-05:00"
+        "products": {#180
+          "amount": 60.0
+          "description": "MaxMD Patient Direct Address 8/month 60/year"
+          "expireDate": "2018-11-03"
+          "name": "MaxMD Patient Direct Address"
+          "offerPrice": 60.0
+          "quantity": 1
+          "salePrice": 60.0
+          "startDate": "2017-11-03"
+        }
+      }
+    }
+  }
+}
+```
