@@ -2,7 +2,6 @@
 
 namespace Endeavors\MaxMD\Registration\Tests;
 
-
 use Endeavors\MaxMD\Api\Auth\MaxMD;
 use Endeavors\MaxMD\Api\Auth\Session;
 use Endeavors\MaxMD\Registration\Person\Registration;
@@ -64,6 +63,32 @@ class VerificationTest extends \Orchestra\Testbench\TestCase
         $this->assertTrue($alreadyVerifiedResult || $verifiedResult);
     }
 
+    public function testVerifyingCreditCard()
+    {
+        // the message will either be MFAOTPGenerated or LoA3Certified if already verified the one time password
+        $response = Patient::Proof($this->person());
+        
+        $person = [
+            'personMeta' => [
+                'firstName' => $response->personMeta->firstName,
+                'lastName' => $response->personMeta->lastName,
+                'ssn4' => $response->personMeta->ssn4,
+                'dob' => $response->personMeta->dob
+            ],
+            'creditCard' => [
+                'cardNumber' => '4111111111111111',
+                'cvv' => '382',
+                'expireYear' => '2019',
+                'expireMonth' => '09'
+            ]
+        ];
+
+        $response = Patient::VerifyCreditCard($person, function($provision, $id) {
+            // if we get here we'll have an id
+            $this->assertNotNull($id);
+        });
+    }
+
     public function testVerifyingPhoneAndProvision()
     {
         // the message will either be MFAOTPGenerated or LoA3Certified if already verified the one time password
@@ -85,6 +110,7 @@ class VerificationTest extends \Orchestra\Testbench\TestCase
         // The idea is to verify the mobile at the same time as provisioning
         // The callback is only executed if the phone number can be verified
         $response = Patient::VerifyMobile($person, function($provision, $id) use($username, $password) {
+            $this->assertNotNull($id);
             $response = $provision->ProvisionIDProofedPatient("healthendeavors.direct.eval.md", ['idpId' => $id], $username, $password);
         });
     }
@@ -95,6 +121,7 @@ class VerificationTest extends \Orchestra\Testbench\TestCase
         $password = "smith";
         // The mobile number must be verified first, verificationStatus should be LoA3Certified to execute the callback
         $response = Patient::Provision($this->person(), function($provision, $id) use($username, $password) {
+            $this->assertNotNull($id);
             $response = $provision->ProvisionIDProofedPatient("healthendeavors.direct.eval.md", ['idpId' => $id], $username, $password);
         });
     }

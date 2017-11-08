@@ -50,6 +50,59 @@ final class Patient
         return $response;
     }
 
+    public static function VerifyCreditCard($request, \Closure $callBack = null)
+    {
+        $proof = new IdentityProof();
+
+        $proof->VerifyCreditCard($request);
+
+        $response = $proof->ToObject();
+
+        $succeeds = $response->success;
+
+        if( true === $succeeds && null !== $callBack ) {
+            $provision = new Registration();
+
+            return $callBack($provision, $response->personMeta->id);
+        }
+
+        return $response;
+    }
+
+    public static function VerifyAll($request, \Closure $callBack)
+    {
+        $originalRequest = $request;
+
+        if( isset($request['creditCard']) ) {
+            unset($request['creditCard']);
+        }
+
+        $response = static::VerifyMobile($request);
+
+        if( null !== $response && true === $response->success) {
+            $provision = new Registration();
+            // if we pass we'll execute the provisioning callback
+            return $callBack($provision, $response->personMeta->id);
+        }
+
+        $request = $originalRequest;
+
+        if( isset($request['otp']) ) {
+            unset($request['otp']);
+        }
+
+        // verify with credit card
+        $response = static::VerifyCreditCard($request);
+
+        if( null !== $response && true === $response->success) {
+            $provision = new Registration();
+            // if we pass we'll execute the provisioning callback
+            return $callBack($provision, $response->personMeta->id);
+        }
+
+        return $response;
+    }
+
     /**
      * The mobile number must be verified first
      * @throws UnauthorizedAccessException

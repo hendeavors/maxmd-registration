@@ -35,6 +35,28 @@ $response = Patient::VerifyMobile($person, function($provision, $id) use($userna
 });
 ```
 
+To easily verifiy the credit card:
+```php
+$person = [
+    'personMeta' => [
+       'firstName' => 'freddie',
+       'lastName' => 'smith',
+       'ssn4' => 9999,
+       'dob' => '1985-05-05'
+    ],
+    'creditCard' => [
+       'cardNumber' => '4111111111111111',
+       'cvv' => '382',
+       'expireYear' => '2019',
+       'expireMonth' => '09'
+    ]
+];
+
+$response = Patient::VerifyCreditCard($person, function($provision, $id) use($username, $password) {
+    $response = $provision->ProvisionIDProofedPatient("yourown.direct.domain.here", ['idpId' => $id], $username, $password);
+});
+```
+
 If the mobile number for the individual has already been verified, you may still acquire the id necessary to provision the person:
 
 ```php
@@ -43,7 +65,44 @@ $response = Patient::Provision($person, function($provision, $id) use($username,
 });
 ```
 
+You may use the VerifyAll method to attempt one or both methods of verification. The phone is attempted first:
+
+```php
+$response = Patient::VerifyAll($person, function($provision, $id) use($username, $password) {
+    $response = $provision->ProvisionIDProofedPatient("yourown.direct.domain.here", ['idpId' => $id], $username, $password);
+});
+```
+
 Note: The username and password for the person are necessary to create the account with maxmd and receive a direct message account.
+
+# Acquiring A Direct Address
+
+To ensure you have the correct direct address:
+
+```php
+$response = Patient::Provision($person, function($provision, $id) use($username, $password) {
+    $response = $provision->ProvisionIDProofedPatient("yourown.direct.domain.here", ['idpId' => $id], $username, $password);
+    // Call get address by username, a bit misleading as this does not return the direct address
+    $provision->GetPatientAddressByUserName("yourown.direct.domain.here", "freddie");
+    // get the direct address username@yourown.direct.domain.here
+    $directAddress = $provision->DirectAddress();
+});
+```
+
+To perform manually:
+
+```php
+// Proof
+// Verify mobile
+// Provision
+$provision = new \Endeavors\MaxMD\Registration\Person\Registration();
+// assume freddie has performed and passed the above steps
+$provision->GetPatientAddressByUserName("yourown.direct.domain.here", "freddie");
+
+$directAddress = $provision->DirectAddress();
+```
+
+# Provisioning Successful Response
 
 Assuming you receive a successful response from maxmd and use freddie as the username. The response will be in the following format:
 
@@ -95,29 +154,4 @@ response: {#176
     }
   }
 }
-```
-
-To ensure you have the correct direct address:
-
-```php
-$response = Patient::Provision($person, function($provision, $id) use($username, $password) {
-    $response = $provision->ProvisionIDProofedPatient("yourown.direct.domain.here", ['idpId' => $id], $username, $password);
-    // Call get address by username, a bit misleading as this does not return the direct address
-    $provision->GetPatientAddressByUserName("yourown.direct.domain.here", "freddie");
-    // get the direct address username@yourown.direct.domain.here
-    $directAddress = $provision->DirectAddress();
-});
-```
-
-To perform manually:
-
-```php
-// Proof
-// Verify mobile
-// Provision
-$provision = new \Endeavors\MaxMD\Registration\Person\Registration();
-// assume freddie has performed and passed the above steps
-$provision->GetPatientAddressByUserName("yourown.direct.domain.here", "freddie");
-
-$directAddress = $provision->DirectAddress();
 ```
