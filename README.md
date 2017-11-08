@@ -24,10 +24,11 @@ $person = [
 
 $response = Patient::Proof($person);
 ```
-This will automatically send a one-time password to the mobile number provided
+This will automatically send a one-time password to the mobile number provided.
 
+# Verification
 
-If you wish, you may also verify the mobile number at the same time as provisioning a direct account for the person:
+Verify the mobile number at the same time as provisioning a direct account for the person:
 
 ```php
 $response = Patient::VerifyMobile($person, function($provision, $id) use($username, $password) {
@@ -35,7 +36,7 @@ $response = Patient::VerifyMobile($person, function($provision, $id) use($userna
 });
 ```
 
-To easily verifiy the credit card:
+To verifiy the credit card:
 ```php
 $person = [
     'personMeta' => [
@@ -57,14 +58,6 @@ $response = Patient::VerifyCreditCard($person, function($provision, $id) use($us
 });
 ```
 
-If the mobile number for the individual has already been verified, you may still acquire the id necessary to provision the person:
-
-```php
-$response = Patient::Provision($person, function($provision, $id) use($username, $password) {
-    $response = $provision->ProvisionIDProofedPatient("yourown.direct.domain.here", ['idpId' => $id], $username, $password);
-});
-```
-
 You may use the VerifyAll method to attempt one or both methods of verification. The phone is attempted first:
 
 ```php
@@ -73,7 +66,16 @@ $response = Patient::VerifyAll($person, function($provision, $id) use($username,
 });
 ```
 
+If the mobile number for the individual has already been verified, you may still acquire the id necessary to provision the person:
+
+```php
+$response = Patient::Provision($person, function($provision, $id) use($username, $password) {
+    $response = $provision->ProvisionIDProofedPatient("yourown.direct.domain.here", ['idpId' => $id], $username, $password);
+});
+```
+
 Note: The username and password for the person are necessary to create the account with maxmd and receive a direct message account.
+
 
 # Acquiring A Direct Address
 
