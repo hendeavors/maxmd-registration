@@ -23,6 +23,9 @@ $person = [
 ];
 
 $response = Patient::Proof($person);
+
+// check a patient, does not send one time password
+$response = Patient::Check($person);
 ```
 This will automatically send a one-time password to the mobile number provided.
 
@@ -66,7 +69,7 @@ $response = Patient::VerifyAll($person, function($provision, $id) use($username,
 });
 ```
 
-If the mobile number for the individual has already been verified, you may still acquire the id necessary to provision the person:
+If the mobile number for the individual has already been verified, you may still acquire the id necessary to provision the person. The one-time password will no longer attempt to send using the Provision method:
 
 ```php
 $response = Patient::Provision($person, function($provision, $id) use($username, $password) {
