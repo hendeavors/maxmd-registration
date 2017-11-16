@@ -26,6 +26,21 @@ final class Patient
     }
 
     /**
+     * @throws UnauthorizedAccessException
+     * @return response object
+     */
+    public static function Check($request, $autoSendOTP = false)
+    {
+        $proof = new IdentityProof();
+        
+        $proof->VerifyAndAuthenticate($request, $autoSendOTP);
+        
+        $response = $proof->ToObject();
+
+        return $response;
+    }
+
+    /**
      * A case where we may want to verify the number
      * And provision with a username and password
      * @throws UnauthorizedAccessException
