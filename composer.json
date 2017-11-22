@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "endeavors/maxmd-proofing": "0.3.*@dev",
+        "endeavors/maxmd-proofing": "dev-develop",
         "endeavors/maxmd-http": "*",
         "endeavors/maxmd-support": "dev-develop as 0.1.0",
         "endeavors/maxmd-apiauth": "0.1.*@dev"
