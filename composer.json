@@ -14,13 +14,23 @@
         {
             "type": "git",
             "url": "https://github.com/hendeavors/maxmd-support.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/hendeavors/interoperability.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/hendeavors/contracts.git"
         }
     ],
     "require": {
         "endeavors/maxmd-proofing": "dev-develop",
         "endeavors/maxmd-http": "*",
         "endeavors/maxmd-support": "dev-develop as 0.1.0",
-        "endeavors/maxmd-apiauth": "0.1.*@dev"
+        "endeavors/maxmd-apiauth": "0.1.*@dev",
+        "endeavors/contracts":"dev-master",
+        "endeavors/interoperability":"dev-master"
     },
     "autoload": {
         "psr-4": {

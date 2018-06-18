@@ -11,7 +11,7 @@ use Endeavors\MaxMD\Registration\Person\Person;
 /**
  * What to do if we get No person is loaded. Please register a person or find a registered person first?
  */
-class PersonCheckTest extends \Orchestra\Testbench\TestCase
+class PatientProofTest extends \Orchestra\Testbench\TestCase
 {
     public function setUp()
     {
@@ -22,7 +22,7 @@ class PersonCheckTest extends \Orchestra\Testbench\TestCase
 
     public function testCheckingPerson()
     {
-        $response = Patient::Check($this->person());
+        $response = Patient::Proof($this->person());
         // im valid at this point
         $this->assertTrue($response->success);
     }
