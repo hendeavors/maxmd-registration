@@ -42,6 +42,21 @@ class PersonOnlyTest extends \Orchestra\Testbench\TestCase
         $person = Person::create($this->response(0, "LoA3Certified"));
 
         $this->assertFalse($person->hasId());
+
+        $person->clear();
+    }
+
+    public function testCreatingPersonVerifiedAndAuthenticated()
+    {
+        $person = Person::create($this->response(22, "VerifiedAndAuthenticated"));
+
+        $this->assertTrue($person->hasId());
+
+        $newPerson = Person::create($this->response(44, "VerifiedAndAuthenticated"));
+
+        $this->assertTrue($newPerson->hasId());
+
+        $this->assertEquals(22, $newPerson->id());
     }
 
     public function testPersonServiceIsMaxMD()

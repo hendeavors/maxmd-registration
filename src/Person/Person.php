@@ -24,7 +24,9 @@ class Person implements Interoperability\IPerson
     final public static function create($proofResponse = null)
     {
         // the individual must be certified
-        if( null === static::instance() && null !== $proofResponse && $proofResponse->verificationStatus === "LoA3Certified" ) {
+        if( null === static::instance() && null !== $proofResponse && ($proofResponse->verificationStatus === "LoA3Certified"
+        || $proofResponse->verificationStatus === "VerifiedAndAuthenticated"
+        || $proofResponse->verificationStatus === "VerifiedAndAuthenticatedAndMobileVerified") ) {
             static::$instance = new static($proofResponse);
         }
 
@@ -51,8 +53,9 @@ class Person implements Interoperability\IPerson
 
     public function isCertified()
     {
-        if( null !== $this->proofResponse )
-            return $this->proofResponse->verificationStatus === "LoA3Certified";
+        if( null !== $this->proofResponse ) {
+            return $this->proofResponse->verificationStatus === "LoA3Certified" || $this->proofResponse->verificationStatus === "VerifiedAndAuthenticated" || $this->proofResponse->verificationStatus === "VerifiedAndAuthenticatedAndMobileVerified";
+        }
 
         return false;
     }
