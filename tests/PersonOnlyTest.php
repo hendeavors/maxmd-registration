@@ -68,13 +68,11 @@ class PersonOnlyTest extends \Orchestra\Testbench\TestCase
     {
         $person = Person::create($this->response(22, "VerifiedAndAuthenticated"));
 
-        $this->assertFalse($person->hasId());
+        $this->assertNull($person);
 
         $newPerson = Person::create($this->response(44, "VerifiedAndAuthenticated"));
 
-        $this->assertFalse($newPerson->hasId());
-
-        $this->assertEquals(0, $newPerson->id());
+        $this->assertNull($newPerson);
 
         $newPerson = Person::create($this->response(77, "Registered"));
 
