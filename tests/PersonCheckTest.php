@@ -33,6 +33,8 @@ class PersonCheckTest extends \Orchestra\Testbench\TestCase
         $person = Person::create();
 
         $this->assertTrue($person->hasId());
+
+        $person->clear();
     }
 
     protected function person()

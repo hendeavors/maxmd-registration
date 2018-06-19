@@ -26,8 +26,6 @@ class PersonOnlyTest extends \Orchestra\Testbench\TestCase
         $person = Person::create($this->response(1, "LoA3Certified"));
 
         $this->assertTrue($person->hasId());
-
-        $person->clear();
     }
 
     public function testCreatingPersonWithProperIdAndWrongStatus()
@@ -42,21 +40,45 @@ class PersonOnlyTest extends \Orchestra\Testbench\TestCase
         $person = Person::create($this->response(0, "LoA3Certified"));
 
         $this->assertFalse($person->hasId());
+    }
 
-        $person->clear();
+    public function testCreatingNewPersonAfterIdRequested()
+    {
+        $person = Person::create($this->response(123, "LoA3Certified"));
+
+        $this->assertTrue($person->hasId());
+
+        $this->assertEquals(123, $person->id());
+
+        $newPerson = Person::create();
+
+        $this->assertNull($newPerson);
+    }
+
+    public function testCreatingNewPersonBeforeIdRequested()
+    {
+        $person = Person::create($this->response(123, "LoA3Certified"));
+
+        $newPerson = Person::create();
+
+        $this->assertEquals(123, $newPerson->id());
     }
 
     public function testCreatingPersonVerifiedAndAuthenticated()
     {
         $person = Person::create($this->response(22, "VerifiedAndAuthenticated"));
 
-        $this->assertTrue($person->hasId());
+        $this->assertFalse($person->hasId());
 
         $newPerson = Person::create($this->response(44, "VerifiedAndAuthenticated"));
 
-        $this->assertTrue($newPerson->hasId());
+        $this->assertFalse($newPerson->hasId());
 
-        $this->assertEquals(22, $newPerson->id());
+        $this->assertEquals(0, $newPerson->id());
+
+        $newPerson = Person::create($this->response(77, "Registered"));
+
+        $this->assertNull($newPerson);
     }
 
     public function testPersonServiceIsMaxMD()
