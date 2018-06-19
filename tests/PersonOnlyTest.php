@@ -3,6 +3,8 @@
 namespace Endeavors\MaxMD\Registration\Tests;
 
 use Endeavors\MaxMD\Registration\Person\Person;
+use Endeavors\MaxMD\Registration\Person\Certified;
+use Endeavors\MaxMD\Registration\Person\PersonFactory;
 
 /**
  * What to do if we get No person is loaded. Please register a person or find a registered person first?
@@ -66,15 +68,15 @@ class PersonOnlyTest extends \Orchestra\Testbench\TestCase
 
     public function testCreatingPersonVerifiedAndAuthenticated()
     {
-        $person = Person::create($this->response(22, "VerifiedAndAuthenticated"));
+        $person = PersonFactory::certified($this->response(22, "VerifiedAndAuthenticated"));
 
         $this->assertNull($person);
 
-        $newPerson = Person::create($this->response(44, "VerifiedAndAuthenticated"));
+        $newPerson = PersonFactory::certified($this->response(44, "VerifiedAndAuthenticated"));
 
         $this->assertNull($newPerson);
 
-        $newPerson = Person::create($this->response(77, "Registered"));
+        $newPerson = PersonFactory::certified($this->response(77, "Registered"));
 
         $this->assertNull($newPerson);
     }
