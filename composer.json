@@ -14,7 +14,9 @@
         "endeavors/maxmd-proofing": "0.3.*@dev",
         "endeavors/maxmd-http": "*",
         "endeavors/maxmd-support": "^1.0",
-        "endeavors/maxmd-apiauth": "0.1.*@dev"
+        "endeavors/maxmd-apiauth": "0.1.*@dev",
+        "endeavors/contracts":"dev-master",
+        "endeavors/interoperability":"dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -31,7 +33,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "1.1.x-dev"
         }
     }
 }
