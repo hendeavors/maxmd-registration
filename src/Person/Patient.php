@@ -129,7 +129,10 @@ final class Patient
      */
     public static function Provision($request, \Closure $callBack = null)
     {
-        $response = static::Proof($request);
+        // we shouldn't send the one time password again, the number should
+        // already be verified. we just need to ensure the user is who they
+        // say they are
+        $response = static::Check($request);
 
         $succeeds = $response->success;
 
