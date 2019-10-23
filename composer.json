@@ -12,7 +12,6 @@
     "minimum-stability": "dev",
     "require": {
         "endeavors/maxmd-proofing": "0.3.*@dev",
-        "endeavors/maxmd-http": "*",
         "endeavors/maxmd-support": "^1.0",
         "endeavors/maxmd-apiauth": "0.1.*@dev"
     },
@@ -27,7 +26,7 @@
         }
     },
     "require-dev": {
-        "orchestra/testbench": "3.2.*"
+        "phpunit/phpunit": "^6.0 || ^7.0"
     },
     "extra": {
         "branch-alias": {
