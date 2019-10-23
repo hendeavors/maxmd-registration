@@ -6,6 +6,7 @@ use Endeavors\MaxMD\Registration\Contracts\IRegister;
 use Endeavors\MaxMD\Support\Client;
 use Endeavors\MaxMD\Api\Auth\Session;
 use Endeavors\MaxMD\Registration\Traits\PatientAddressTrait;
+use Endeavors\MaxMD\Api\Auth\UnauthorizedAccessException;
 
 class Registration implements IRegister
 {
@@ -29,9 +30,11 @@ class Registration implements IRegister
             $this->response = Client::PatientRegistration()->ProvisionIDProofedPatient($registration);
 
             $this->setDirectDomain($directDomain);
+
+            return $this;
         }
 
-        return $this;
+        throw new UnauthorizedAccessException("The credentials supplied are either invalid or your session has timed out.");
     }
 
     public function GetPatientAddressByMeta($directDomain, $request = array())
@@ -39,7 +42,11 @@ class Registration implements IRegister
         if( Session::check() ) {
             // do stuff
             $this->setDirectDomain($directDomain);
+
+            return $this;
         }
+
+        throw new UnauthorizedAccessException("The credentials supplied are either invalid or your session has timed out.");
     }
     
     /**
@@ -60,9 +67,11 @@ class Registration implements IRegister
             $this->response = Client::PatientRegistration()->GetPatientAddressByUsername($registration);
 
             $this->setDirectDomain($directDomain);
+
+            return $this;
         }
 
-        return $this;
+        throw new UnauthorizedAccessException("The credentials supplied are either invalid or your session has timed out.");
     }
 
     public function ToObject()
