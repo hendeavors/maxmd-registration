@@ -112,7 +112,7 @@ class VerificationTest extends TestCase
         // The callback is only executed if the phone number can be verified
         $response = Patient::VerifyMobile($person, function($provision, $id) use($username, $password) {
             $this->assertNotNull($id);
-            $response = $provision->ProvisionIDProofedPatient("healthendeavors.direct.eval.md", ['idpId' => $id], $username, $password);
+            $response = $provision->ProvisionIDProofedPatient(getenv('MAXMD_DOMAIN'), ['idpId' => $id], $username, $password);
         });
     }
 
@@ -123,7 +123,7 @@ class VerificationTest extends TestCase
         // The mobile number must be verified first, verificationStatus should be LoA3Certified to execute the callback
         $response = Patient::Provision($this->person(), function($provision, $id) use($username, $password) {
             $this->assertNotNull($id);
-            $response = $provision->ProvisionIDProofedPatient("healthendeavors.direct.eval.md", ['idpId' => $id], $username, $password);
+            $response = $provision->ProvisionIDProofedPatient(getenv('MAXMD_DOMAIN'), ['idpId' => $id], $username, $password);
         });
     }
 

@@ -77,7 +77,7 @@ class DynamicVerificationTest extends TestCase
         // The idea is to verify the mobile at the same time as provisioning
         // The callback is only executed if the phone number can be verified
         $response = Patient::VerifyMobile($person, function($provision, $id) use($username, $password) {
-            $response = $provision->ProvisionIDProofedPatient("healthendeavors.direct.eval.md", ['idpId' => $id], $username, $password);
+            $response = $provision->ProvisionIDProofedPatient(getenv('MAXMD_DOMAIN'), ['idpId' => $id], $username, $password);
         });
     }
 
@@ -87,7 +87,7 @@ class DynamicVerificationTest extends TestCase
         $password = "smith";
         // The mobile number must be verified first, verificationStatus should be LoA3Certified to execute the callback
         $response = Patient::Provision($this->inputPerson(), function($provision, $id) use($username, $password) {
-            $response = $provision->ProvisionIDProofedPatient("healthendeavors.direct.eval.md", ['idpId' => $id], $username, $password);
+            $response = $provision->ProvisionIDProofedPatient(getenv('MAXMD_DOMAIN'), ['idpId' => $id], $username, $password);
         });
     }
 

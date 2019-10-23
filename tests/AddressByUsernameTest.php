@@ -26,7 +26,7 @@ class AddressByUsernameTest extends TestCase
 
         $this->assertTrue($provision->Status() === "activated");
 
-        $this->assertEquals($provision->DirectAddress(), "freddie@healthendeavors.direct.eval.md");
+        $this->assertEquals($provision->DirectAddress(), "freddie@" . getenv('MAXMD_DOMAIN'));
     }
 
     /**
@@ -36,7 +36,7 @@ class AddressByUsernameTest extends TestCase
     {
         $provision = new Registration();
         // freddies was not provisioned in an earlier test
-        $provision->GetPatientAddressByUserName("healthendeavors.direct.eval.md", "freddies");
+        $provision->GetPatientAddressByUserName(getenv('MAXMD_DOMAIN'), "freddies");
 
         $this->assertFalse($provision->Status());
 
@@ -50,11 +50,11 @@ class AddressByUsernameTest extends TestCase
     {
         $provision = new Registration();
         // freddie was provisioned in an earlier test
-        $provision->GetPatientAddressByUserName("healthendeavors.direct.eval.md", "freddie");
+        $provision->GetPatientAddressByUserName(getenv('MAXMD_DOMAIN'), "freddie");
 
         $this->assertEquals($provision->Username(), "freddie");
 
-        $this->assertEquals($provision->DirectAddress(), "freddie@healthendeavors.direct.eval.md");
+        $this->assertEquals($provision->DirectAddress(), "freddie@" . getenv('MAXMD_DOMAIN'));
     }
 
     /**
@@ -64,7 +64,7 @@ class AddressByUsernameTest extends TestCase
     {
         $provision = new Registration();
         // freddies was not provisioned in an earlier test
-        $provision->GetPatientAddressByUserName("healthendeavors.direct.eval.md", "freddies");
+        $provision->GetPatientAddressByUserName(getenv('MAXMD_DOMAIN'), "freddies");
 
         $this->assertNull($provision->Username());
 
