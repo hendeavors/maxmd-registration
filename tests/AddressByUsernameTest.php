@@ -4,24 +4,25 @@ namespace Endeavors\MaxMD\Registration\Tests;
 
 use Endeavors\MaxMD\Api\Auth\MaxMD;
 use Endeavors\MaxMD\Registration\Person\Registration;
+use PHPUnit\Framework\TestCase;
 
-class AddressByUsernameTest extends \Orchestra\Testbench\TestCase
+class AddressByUsernameTest extends TestCase
 {
     public function setUp()
     {
-        MaxMD::Login(env("MAXMD_APIUSERNAME"),env("MAXMD_APIPASSWORD"));
+        MaxMD::Login(getenv("MAXMD_APIUSERNAME"),getenv("MAXMD_APIPASSWORD"));
 
         parent::setUp();
     }
-    
+
     /**
-     * 
+     *
      */
     public function testGettingStatusOfProvisionedUser()
     {
         $provision = new Registration();
         // freddie was provisioned in an earlier test
-        $provision->GetPatientAddressByUserName("healthendeavors.direct.eval.md", "freddie");
+        $provision->GetPatientAddressByUserName(getenv('MAXMD_DOMAIN'), "freddie");
 
         $this->assertTrue($provision->Status() === "activated");
 
@@ -29,7 +30,7 @@ class AddressByUsernameTest extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * 
+     *
      */
     public function testGettingStatusOfUnprovisionedUser()
     {
@@ -43,7 +44,7 @@ class AddressByUsernameTest extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * 
+     *
      */
     public function testGettingUsernameOfProvisionedUser()
     {
@@ -57,7 +58,7 @@ class AddressByUsernameTest extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * 
+     *
      */
     public function testGettingUsernameOfUnprovisionedUser()
     {
@@ -73,7 +74,7 @@ class AddressByUsernameTest extends \Orchestra\Testbench\TestCase
     public function testInvalidDirectAddress()
     {
         $provision = new Registration();
-        
+
         $provision->GetPatientAddressByUserName("some.invalid.direct.md", "freddie");
 
         $this->assertNull($provision->Username());

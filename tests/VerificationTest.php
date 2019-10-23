@@ -6,14 +6,15 @@ use Endeavors\MaxMD\Api\Auth\MaxMD;
 use Endeavors\MaxMD\Api\Auth\Session;
 use Endeavors\MaxMD\Registration\Person\Registration;
 use Endeavors\MaxMD\Registration\Person\Patient;
+use PHPUnit\Framework\TestCase;
 
-class VerificationTest extends \Orchestra\Testbench\TestCase
+class VerificationTest extends TestCase
 {
     use Traits\InputPromptTrait;
 
     public function setUp()
     {
-        MaxMD::Login(env("MAXMD_APIUSERNAME"),env("MAXMD_APIPASSWORD"));
+        MaxMD::Login(getenv("MAXMD_APIUSERNAME"),getenv("MAXMD_APIPASSWORD"));
 
         parent::setUp();
     }
@@ -28,22 +29,22 @@ class VerificationTest extends \Orchestra\Testbench\TestCase
 
         $this->assertTrue($result);
     }
-    
+
     /**
      * We'll get code AP:2 back from maxmd
      * @todo
      */
     public function testCantFindPersonWhenVerifyingPhone()
     {
-   
+
     }
-    
+
     // The test may fail with a status of Registered, unsure as to why
     public function testVerifyingPhone()
     {
         // the message will either be MFAOTPGenerated or LoA3Certified if already verified the one time password
         $response = Patient::Proof($this->person());
-        
+
         $person = [
             'otp' => $this->promptPassword(),
             'personMeta' => [
@@ -67,7 +68,7 @@ class VerificationTest extends \Orchestra\Testbench\TestCase
     {
         // the message will either be MFAOTPGenerated or LoA3Certified if already verified the one time password
         $response = Patient::Proof($this->person());
-        
+
         $person = [
             'personMeta' => [
                 'firstName' => $response->personMeta->firstName,
@@ -93,7 +94,7 @@ class VerificationTest extends \Orchestra\Testbench\TestCase
     {
         // the message will either be MFAOTPGenerated or LoA3Certified if already verified the one time password
         $response = Patient::Proof($this->person());
-        
+
         $person = [
             'otp' => $this->promptPassword(),
             'personMeta' => [
@@ -106,7 +107,7 @@ class VerificationTest extends \Orchestra\Testbench\TestCase
 
         $username = "bobbie";
         $password = "smith";
-        
+
         // The idea is to verify the mobile at the same time as provisioning
         // The callback is only executed if the phone number can be verified
         $response = Patient::VerifyMobile($person, function($provision, $id) use($username, $password) {
