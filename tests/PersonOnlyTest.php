@@ -5,11 +5,12 @@ namespace Endeavors\MaxMD\Registration\Tests;
 use Endeavors\MaxMD\Registration\Person\Person;
 use Endeavors\MaxMD\Registration\Person\Certified;
 use Endeavors\MaxMD\Registration\Person\PersonFactory;
+use PHPUnit\Framework\TestCase;
 
 /**
  * What to do if we get No person is loaded. Please register a person or find a registered person first?
  */
-class PersonOnlyTest extends \Orchestra\Testbench\TestCase
+class PersonOnlyTest extends TestCase
 {
     public function setUp()
     {
