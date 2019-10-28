@@ -10,10 +10,24 @@
         }
     ],
     "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bpedroza/maxmd-proofing.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/bpedroza/maxmd-apiauth.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/bpedroza/maxmd-support.git"
+        }
+    ],
     "require": {
-        "endeavors/maxmd-proofing": "0.3.*@dev",
-        "endeavors/maxmd-support": "^1.0",
-        "endeavors/maxmd-apiauth": "0.1.*@dev"
+        "endeavors/maxmd-proofing": "version-updates-dev",
+        "endeavors/maxmd-support": "developer-options-dev",
+        "endeavors/maxmd-apiauth": "support-version-dev"
     },
     "autoload": {
         "psr-4": {

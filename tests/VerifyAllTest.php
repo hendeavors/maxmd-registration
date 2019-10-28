@@ -6,7 +6,6 @@ use Endeavors\MaxMD\Api\Auth\MaxMD;
 use Endeavors\MaxMD\Api\Auth\Session;
 use Endeavors\MaxMD\Registration\Person\Registration;
 use Endeavors\MaxMD\Registration\Person\Patient;
-use PHPUnit\Framework\TestCase;
 
 /**
  * What to do if we get No person is loaded. Please register a person or find a registered person first?
@@ -17,9 +16,8 @@ class VerifyAllTest extends TestCase
 
     public function setUp()
     {
-        MaxMD::Login(getenv("MAXMD_APIUSERNAME"),getenv("MAXMD_APIPASSWORD"));
-
         parent::setUp();
+        MaxMD::Login(getenv("MAXMD_APIUSERNAME"),getenv("MAXMD_APIPASSWORD"));
     }
 
     public function testVerifyingCreditCardOrPhone()
