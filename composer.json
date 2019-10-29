@@ -14,20 +14,12 @@
         {
             "type": "vcs",
             "url": "https://github.com/bpedroza/maxmd-proofing.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/bpedroza/maxmd-apiauth.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/bpedroza/maxmd-support.git"
         }
     ],
     "require": {
-        "endeavors/maxmd-proofing": "version-updates-dev",
-        "endeavors/maxmd-support": "developer-options-dev",
-        "endeavors/maxmd-apiauth": "support-version-dev"
+        "endeavors/maxmd-proofing": "dev-version-updates",
+        "endeavors/maxmd-support": "~1.4.0",
+        "endeavors/maxmd-apiauth": "0.1.*"
     },
     "autoload": {
         "psr-4": {
@@ -40,7 +32,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.0 || ^7.0"
+        "phpunit/phpunit": "^7.0"
     },
     "extra": {
         "branch-alias": {
