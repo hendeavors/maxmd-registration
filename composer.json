@@ -18,6 +18,8 @@
     ],
     "require": {
         "endeavors/maxmd-proofing": "dev-version-updates",
+        "endeavors/contracts":"dev-master",
+        "endeavors/interoperability":"dev-master",
         "endeavors/maxmd-support": "~1.4.0",
         "endeavors/maxmd-apiauth": "0.1.*"
     },

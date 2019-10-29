@@ -9,21 +9,21 @@ use Endeavors\MaxMD\Registration\Person\Patient;
 use Endeavors\MaxMD\Registration\Person\Person;
 use PHPUnit\Framework\TestCase;
 
-
 /**
  * What to do if we get No person is loaded. Please register a person or find a registered person first?
  */
-class PersonCheckTest extends TestCase
+class PatientProofTest extends TestCase
 {
     public function setUp()
     {
-        parent::setUp();
         MaxMD::Login(getenv("MAXMD_APIUSERNAME"),getenv("MAXMD_APIPASSWORD"));
+
+        parent::setUp();
     }
 
     public function testCheckingPerson()
     {
-        $response = Patient::Check($this->person());
+        $response = Patient::Proof($this->person());
         // im valid at this point
         $this->assertTrue($response->success);
     }
@@ -34,8 +34,6 @@ class PersonCheckTest extends TestCase
         $person = Person::create();
 
         $this->assertTrue($person->hasId());
-
-        $person->clear();
     }
 
     protected function person()
