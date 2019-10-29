@@ -17,10 +17,12 @@ final class Patient
     public static function Proof($request)
     {
         $proof = new IdentityProof();
-        
+
         $proof->Verify($request);
-        
+
         $response = $proof->ToObject();
+
+        Person::create($response);
 
         return $response;
     }
@@ -32,10 +34,12 @@ final class Patient
     public static function Check($request, $autoSendOTP = false)
     {
         $proof = new IdentityProof();
-        
+
         $proof->VerifyAndAuthenticate($request, $autoSendOTP);
-        
+
         $response = $proof->ToObject();
+
+        Person::create($response);
 
         return $response;
     }
@@ -49,13 +53,13 @@ final class Patient
     public static function VerifyMobile($request, \Closure $callBack = null)
     {
         $proof = new IdentityProof();
-        
+
         $proof->VerifyOneTimePassword($request);
-        
+
         $response = $proof->ToObject();
 
         $succeeds = $response->success;
-        
+
         if( $succeeds && null !== $callBack ) {
             $provision = new Registration();
             // if we pass we'll execute the provisioning callback
@@ -140,20 +144,20 @@ final class Patient
 
         return $response;
     }
-    
+
     /**
      * @throws UnauthorizedAccessException
      */
     public static function Passes($request)
     {
         $proof = new IdentityProof();
-        
+
         $proof->Verify($request);
-        
+
         return $proof->ToObject()->success;
     }
 
-    
+
 
     /**
      * @throws UnauthorizedAccessException

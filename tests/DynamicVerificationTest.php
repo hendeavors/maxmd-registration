@@ -7,14 +7,15 @@ use Endeavors\MaxMD\Api\Auth\MaxMD;
 use Endeavors\MaxMD\Api\Auth\Session;
 use Endeavors\MaxMD\Registration\Person\Registration;
 use Endeavors\MaxMD\Registration\Person\Patient;
+use PHPUnit\Framework\TestCase;
 
-class DynamicVerificationTest extends \Orchestra\Testbench\TestCase
+class DynamicVerificationTest extends TestCase
 {
     use Traits\InputPromptTrait;
 
     public function setUp()
     {
-        MaxMD::Login(env("MAXMD_APIUSERNAME"),env("MAXMD_APIPASSWORD"));
+        MaxMD::Login(getenv("MAXMD_APIUSERNAME"),getenv("MAXMD_APIPASSWORD"));
 
         parent::setUp();
     }
@@ -35,7 +36,7 @@ class DynamicVerificationTest extends \Orchestra\Testbench\TestCase
     {
         // The message will either be MFAOTPGenerated or LoA3Certified if already verified the one time password
         $response = Patient::Proof($this->inputPerson());
-        
+
         $person = [
             'otp' => $this->promptPassword(),
             'personMeta' => [
@@ -59,7 +60,7 @@ class DynamicVerificationTest extends \Orchestra\Testbench\TestCase
     {
         // The message will either be MFAOTPGenerated or LoA3Certified if already verified the one time password
         $response = Patient::Proof($this->inputPerson());
-        
+
         $person = [
             'otp' => $this->promptPassword(),
             'personMeta' => [
@@ -72,11 +73,11 @@ class DynamicVerificationTest extends \Orchestra\Testbench\TestCase
 
         $username = "freddie";
         $password = "smith";
-        
+
         // The idea is to verify the mobile at the same time as provisioning
         // The callback is only executed if the phone number can be verified
         $response = Patient::VerifyMobile($person, function($provision, $id) use($username, $password) {
-            $response = $provision->ProvisionIDProofedPatient("healthendeavors.direct.eval.md", ['idpId' => $id], $username, $password);
+            $response = $provision->ProvisionIDProofedPatient(getenv('MAXMD_DOMAIN'), ['idpId' => $id], $username, $password);
         });
     }
 
@@ -86,7 +87,7 @@ class DynamicVerificationTest extends \Orchestra\Testbench\TestCase
         $password = "smith";
         // The mobile number must be verified first, verificationStatus should be LoA3Certified to execute the callback
         $response = Patient::Provision($this->inputPerson(), function($provision, $id) use($username, $password) {
-            $response = $provision->ProvisionIDProofedPatient("healthendeavors.direct.eval.md", ['idpId' => $id], $username, $password);
+            $response = $provision->ProvisionIDProofedPatient(getenv('MAXMD_DOMAIN'), ['idpId' => $id], $username, $password);
         });
     }
 
