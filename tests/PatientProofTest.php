@@ -16,9 +16,9 @@ class PatientProofTest extends TestCase
 {
     public function setUp()
     {
-        MaxMD::Login(getenv("MAXMD_APIUSERNAME"),getenv("MAXMD_APIPASSWORD"));
-
         parent::setUp();
+
+        MaxMD::Login(getenv("MAXMD_APIUSERNAME"),getenv("MAXMD_APIPASSWORD"));
     }
 
     public function testCheckingPerson()
