@@ -11,11 +11,11 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "endeavors/maxmd-proofing": "0.3.*@dev",
+        "endeavors/maxmd-proofing": "0.4.*",
         "endeavors/contracts":"dev-master",
         "endeavors/interoperability":"dev-master",
-        "endeavors/maxmd-support": "^1.0",
-        "endeavors/maxmd-apiauth": "0.1.*@dev"
+        "endeavors/maxmd-support": "~1.4.0",
+        "endeavors/maxmd-apiauth": "0.1.*"
     },
     "autoload": {
         "psr-4": {
@@ -28,7 +28,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.0 || ^7.0"
+        "phpunit/phpunit": "^7.0"
     },
     "extra": {
         "branch-alias": {

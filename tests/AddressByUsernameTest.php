@@ -4,15 +4,13 @@ namespace Endeavors\MaxMD\Registration\Tests;
 
 use Endeavors\MaxMD\Api\Auth\MaxMD;
 use Endeavors\MaxMD\Registration\Person\Registration;
-use PHPUnit\Framework\TestCase;
 
 class AddressByUsernameTest extends TestCase
 {
     public function setUp()
     {
-        MaxMD::Login(getenv("MAXMD_APIUSERNAME"),getenv("MAXMD_APIPASSWORD"));
-
         parent::setUp();
+        MaxMD::Login(getenv("MAXMD_APIUSERNAME"),getenv("MAXMD_APIPASSWORD"));
     }
 
     /**
