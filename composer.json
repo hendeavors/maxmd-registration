@@ -10,12 +10,6 @@
         }
     ],
     "minimum-stability": "dev",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/bpedroza/maxmd-proofing.git"
-        }
-    ],
     "require": {
         "endeavors/maxmd-proofing": "0.4.*",
         "endeavors/contracts":"dev-master",
