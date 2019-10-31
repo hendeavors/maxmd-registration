@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "endeavors/maxmd-proofing": "dev-version-updates",
+        "endeavors/maxmd-proofing": "0.4.*",
         "endeavors/contracts":"dev-master",
         "endeavors/interoperability":"dev-master",
         "endeavors/maxmd-support": "~1.4.0",
